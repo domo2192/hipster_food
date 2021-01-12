@@ -39,21 +39,37 @@ class Event
     end.flatten.uniq
   end
 
+  # def total_inventory
+  #   item_hash = {}
+  #   collect_items_sold.each do |item|
+  #     inside_hash = Hash.new(0)
+  #     @food_trucks.each do |food_truck|
+  #       inside_hash[:quantity] += food_truck.check_stock(item)
+  #     end
+  #     inside_hash[:food_trucks] = food_trucks_that_sell(item)
+  #     item_hash[item] = inside_hash
+  #   end
+  #   item_hash
+  # end
+
   def total_inventory
     item_hash = {}
-    collect_items_sold.each do |item|
-      inside_hash = Hash.new(0)
-      @food_trucks.each do |food_truck|
-        inside_hash[:quantity] += food_truck.check_stock(item)
+    @food_trucks.each do |food_truck|
+      food_truck.inventory.each do |item, amount|
+        if item_hash[item]
+          item_hash[item][:quantity] += amount if item_hash[item]
+        else
+          item_hash[item] = {quantity: amount,
+                             food_trucks: food_trucks_that_sell(item)}
+        end
       end
-      inside_hash[:food_trucks] = food_trucks_that_sell(item)
-      item_hash[item] = inside_hash
     end
     item_hash
   end
 
   def overstocked_items
-    
+    total_inventory.select do |item, inside_hash|
+      inside_hash[:quantity] > 50 && inside_hash[:food_trucks].count > 1
+    end.keys
   end
-
 end

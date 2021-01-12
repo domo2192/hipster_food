@@ -89,7 +89,7 @@ class EventTest < Minitest::Test
     @food_truck3.stock(@item1, 65)
     @food_truck3.stock(@item3, 10)
     expected = {@item1 => {quantity: 100,
-                           food_trucks: [@food_truck1, @food_truck2]
+                           food_trucks: [@food_truck1, @food_truck3]
                            },
                 @item2 => {quantity: 7,
                            food_trucks: [@food_truck1]
@@ -97,7 +97,7 @@ class EventTest < Minitest::Test
                 @item4 => {quantity: 50,
                            food_trucks: [@food_truck2]
                            },
-                @item_3 => {quantity:35,
+                @item3 => {quantity:35,
                             food_trucks: [@food_truck2, @food_truck3]}
                 }
     assert_equal [@item1, @item2, @item4, @item3], @event.collect_items_sold
