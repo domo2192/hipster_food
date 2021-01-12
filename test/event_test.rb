@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/food_truck'
 require './lib/item'
 require './lib/event'
+require 'date'
 
 class EventTest < Minitest::Test
 
@@ -115,5 +116,12 @@ class EventTest < Minitest::Test
     @food_truck3.stock(@item1, 65)
     @food_truck3.stock(@item3, 10)
     assert_equal [@item1], @event.overstocked_items
+  end
+
+  def test_we_can_give_events_dates
+    ### can you show me how to make this stub
+    # Date.stubs(:today).returns(Date.new(2020, 2,24))
+    assert_equal "12/01/2021", @event.date
+
   end
 end

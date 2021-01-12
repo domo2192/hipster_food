@@ -1,3 +1,4 @@
+require 'date'
 class Event
   attr_reader :name, :food_trucks
   def initialize(name)
@@ -39,19 +40,6 @@ class Event
     end.flatten.uniq
   end
 
-  # def total_inventory
-  #   item_hash = {}
-  #   collect_items_sold.each do |item|
-  #     inside_hash = Hash.new(0)
-  #     @food_trucks.each do |food_truck|
-  #       inside_hash[:quantity] += food_truck.check_stock(item)
-  #     end
-  #     inside_hash[:food_trucks] = food_trucks_that_sell(item)
-  #     item_hash[item] = inside_hash
-  #   end
-  #   item_hash
-  # end
-
   def total_inventory
     item_hash = {}
     @food_trucks.each do |food_truck|
@@ -71,5 +59,9 @@ class Event
     total_inventory.select do |item, inside_hash|
       inside_hash[:quantity] > 50 && inside_hash[:food_trucks].count > 1
     end.keys
+  end
+
+  def date
+    Date.today.strftime('%d/%m/%Y')
   end
 end
