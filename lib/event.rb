@@ -32,14 +32,28 @@ class Event
   end
 
   def collect_items_sold
-    @food_trucks.each do |truck|
+    @food_trucks.map do |truck|
       truck.inventory.map do |item, amount|
         item
       end
-    end
+    end.flatten.uniq
   end
 
   def total_inventory
-    all_items_sold.each do |item|
+    item_hash = {}
+    collect_items_sold.each do |item|
+      inside_hash = Hash.new(0)
+      @food_trucks.each do |food_truck|
+        inside_hash[:quantity] += food_truck.check_stock(item)
+      end
+      inside_hash[:food_trucks] = food_trucks_that_sell(item)
+      item_hash[item] = inside_hash
+    end
+    item_hash
   end
+
+  def overstocked_items
+    
+  end
+
 end
