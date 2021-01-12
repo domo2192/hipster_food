@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/foodtruck'
+require './lib/food_truck'
 require './lib/item'
 require './lib/event'
 
@@ -9,6 +9,8 @@ class EventTest < Minitest::Test
   def setup
     @event = Event.new("South Pearl Street Farmers Market")
     @food_truck1 = FoodTruck.new("Rocky Mountain Pies")
+    @food_truck2 = FoodTruck.new("Ba-Nom-a-Nom")
+    @food_truck3 = FoodTruck.new("Palisade Peach Shack")
     @item1 = Item.new({name: 'Peach Pie (Slice)', price: "$3.75"})
     @item2 = Item.new({name: 'Apple Pie (Slice)', price: '$2.50'})
     @item3 = Item.new({name: "Peach-Raspberry Nice Cream", price: "$5.30"})
@@ -21,7 +23,10 @@ class EventTest < Minitest::Test
     assert_equal [], @event.food_trucks
   end
 
-  def test_case_name
-
+  def test_food_trucks_can_be_added
+    @event.add_food_truck(@food_truck1)
+    @event.add_food_truck(@food_truck2)
+    @event.add_food_truck(@food_truck3)
+    assert_equal [@food_truck1, @food_truck2, @food_truck3], @event.food_trucks 
   end
 end
