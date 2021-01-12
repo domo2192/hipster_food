@@ -124,4 +124,23 @@ class EventTest < Minitest::Test
     assert_equal "12/01/2021", @event.date
 
   end
+
+  def test_it_can_sell_items
+    @event.add_food_truck(@food_truck1)
+    @event.add_food_truck(@food_truck2)
+    @event.add_food_truck(@food_truck3)
+    @food_truck1.stock(@item1, 35)
+    @food_truck1.stock(@item2, 7)
+    @food_truck2.stock(@item4, 50)
+    @food_truck2.stock(@item3, 25)
+    @food_truck3.stock(@item1, 65)
+    @food_truck3.stock(@item3, 10)
+    item5 = Item.new({name: 'Onion Pie', price: '$25.00'})
+    assert_equal false, @event.sell(@item1, 200)
+    assert_equal false , @event.sell(item5, 1)
+    assert_equal true, @event.sell(@item4, 5)
+    assert_equal 45, @food_truck2.check_stock(@item4)
+    assert_equal true, @event.sell(@item1, 40)
+    assert_equal 
+  end
 end
