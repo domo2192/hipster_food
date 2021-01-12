@@ -30,4 +30,16 @@ class Event
     end
     sorted_names.sort.uniq
   end
+
+  def collect_items_sold
+    @food_trucks.each do |truck|
+      truck.inventory.map do |item, amount|
+        item
+      end
+    end
+  end
+
+  def total_inventory
+    all_items_sold.each do |item|
+  end
 end

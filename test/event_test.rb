@@ -100,6 +100,7 @@ class EventTest < Minitest::Test
                 @item_3 => {quantity:35,
                             food_trucks: [@food_truck2, @food_truck3]}
                 }
+    assert_equal [@item1, @item2, @item4, @item3], @event.collect_items_sold 
     assert_equal expected, @event.total_inventory
   end
 end
